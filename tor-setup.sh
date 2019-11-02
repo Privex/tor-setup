@@ -592,12 +592,12 @@ msg "\n$_LN\n"
 if [ -z ${AUTO_RESTART_SERVICES+x} ] || [ "$AUTO_RESTART_SERVICES" == "y" ]; then
     msg bold green " [+] Enabling / restarting nginx and Tor"
     if has_command systemctl; then
-        msg bold green " [+] Detected 'systemctl'. Enabling nginx and tor@default ensuring they start on reboot."
+        msg bold green " [+] Detected 'systemctl'. Enabling nginx and tor ensuring they start on reboot."
         sudo systemctl enable nginx
-        sudo systemctl enable tor@default
-        msg bold green " [+] (Re)starting nginx and tor@default"
+        sudo systemctl enable tor
+        msg bold green " [+] (Re)starting nginx and tor"
         sudo systemctl restart nginx
-        sudo systemctl restart tor@default
+        sudo systemctl restart tor
     elif has_command service; then
         msg bold green " [+] Detected 'service'. Restarting nginx and tor."
         service tor restart

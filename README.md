@@ -2,6 +2,63 @@
 
 This tool allows for user friendly configuration of either a normal Tor relay node, or a Tor exit node.
 
+**TorSetup** was designed to be used on our [Tor Friendly Sweden Servers](https://www.privex.io/), it
+ensures that users configure their Tor node correctly, especially exit nodes.
+
+See the [Screenshots](#screenshots) section if you want to see it in action, including a screenshot
+of one of the generated HTML Tor exit notices.
+
+**What it does:**
+
+ - Asks the user for various information for generating configs / templates
+
+    - Asks the user for a nickname
+    - Asks the user if they want to configure a rate limit, and if so, guides the user on setting
+      appropriate rate limits, with number validation.
+    - Asks the user if they operate any other Tor relays / exits
+
+        - If they do, it will ask for the fingerprints of their other nodes (excluding bridges),
+          and explains how to find the fingerprints for each node
+
+    - Automatically detects the external IPv4 + IPv6 address to correctly configure OutboundBindAddress
+
+        - This also allows the setup tool to enable or disable IPv6 configuration options, depending on whether
+          the server has IPv6 or not
+
+    - Asks the user whether they want an exit node or not (with no meaning they get a normal relay)
+    - Asks the user for the reverse DNS of their node, including printing out the current rDNS detected for their
+      external IPs, and explains the importance of reverse DNS for exit nodes + how to setup rDNS
+    - Asks the user for their operator name and contact info, with clear examples to ensure sensible
+      configuration
+    - Asks the user for their expected network speeds, allowing the speeds to be clearly displayed
+      on the HTTP exit/relay notice page (DirPort).
+    - Shows a summary of their configuration when they're done, and allows them to re-do individual
+      questions if they need to correct something.
+
+ - After the user is ready, TorSetup will then:
+
+ - Generate a torrc file - on servers which have IPv6 this will be a fully IPv6 compatible config, enabling
+   IPv6 relaying, as well as outbound IPv6 if they're an exit
+
+ - Generates a HTML exit notice (DirPort index file) based on the details the user entered
+
+ - Configures nginx to display the HTML exit notice on port 80 (IPv4 + v6), and correctly proxies
+   Tor directory queries to the Tor node itself.
+
+ - Once all configs are in place, it will then enable / restart both Tor and Nginx
+      
+
+**Table of Contents**
+
+ - [Requirements](#requirements)
+ - [Usage / Install](#usage)
+    - [Install Dependencies](#install-dependencies)
+    - [Install TorSetup from Github](#install-torsetup-from-github)
+ - [Screenshots](#screenshots)
+ - [Automated installations](#automated-installations)
+ - [License](#license)
+ - [Contributing](#contributing)
+ - [Thanks for reading!](#thanks-for-reading)
 
 # Requirements
 
@@ -21,7 +78,7 @@ This tool allows for user friendly configuration of either a normal Tor relay no
 
 # Usage
 
-**Install dependencies**
+### Install dependencies
 
 Install `git`, `curl`, `python` and `nginx`. 
 
@@ -46,7 +103,7 @@ apt update -y
 apt install -y tor deb.torproject.org-keyring
 ```
 
-**Install TorSetup from Github**
+### Install TorSetup from Github
 
 Simply clone the repo and run `tor-setup.sh` - it will guide you through the whole process of setting up a Tor relay/exit,
 and automatically generate a Tor config, an nginx config, and a customised exit notice page which will be displayed when
@@ -68,6 +125,20 @@ chmod +x /usr/local/share/tor-setup/*.sh
 
 install /usr/local/share/tor-setup/cmd.sh /usr/bin/torsetup
 ```
+
+# Screenshots
+
+**Terminal user interface**
+
+![](https://cdn.privex.io/github/tor-setup/screenshot-1.png)
+![](https://cdn.privex.io/github/tor-setup/screenshot-2.png)
+![](https://cdn.privex.io/github/tor-setup/screenshot-3.png)
+![](https://cdn.privex.io/github/tor-setup/screenshot-4.png)
+
+**Example of automatically generated Tor Exit notice**
+
+![](https://cdn.privex.io/github/tor-setup/screenshot-5.png)
+
 
 # Automated installations
 
@@ -183,7 +254,7 @@ Here's some important information:
      - What changes have you made?
      - Why have you made these changes?
  - Please make sure that code contributions are appropriately commented - we won't accept changes that involve uncommented, highly terse one-liners.
- 
+
 **Legal Disclaimer for Contributions**
 
 Nobody wants to read a long document filled with legal text, so we've summed up the important parts here.
