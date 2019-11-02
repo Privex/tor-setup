@@ -5,8 +5,8 @@ if [ -z ${TORSETUP_DIR+x} ]; then
     grep -q "/lib" <<< "$_DIR" && TORSETUP_DIR=$(dirname "$_DIR") || TORSETUP_DIR="$_DIR"
 fi
 
-[ ! -z ${TORSETUP_FUNCS_LOADED+x} ] || source "${TORSETUP_DIR}/functions.sh" || { 
-    >&2 echo "${BOLD}${RED}[lib/updater.sh] CRITICAL ERROR: Could not load functions file at '${TORSETUP_DIR}/functions.sh' - Exiting!${RESET}"
+[ ! -z ${TORSETUP_FUNCS_LOADED+x} ] || source "${TORSETUP_DIR}/lib/functions.sh" || { 
+    >&2 echo "${BOLD}${RED}[lib/updater.sh] CRITICAL ERROR: Could not load functions file at '${TORSETUP_DIR}/lib/functions.sh' - Exiting!${RESET}"
     exit 1
 }
 
@@ -23,7 +23,7 @@ update_torsetup() {
             msg yellow " [?] TorSetup install folder not writable by this user, but sudo appears to work."
             local git_url=$(sudo git remote get-url origin)
             msg yellow " [lib/updater.sh] (SUDO) Downloading TorSetup updates from Git: $git_url"
-            sudo git reset --hard
+            sudo git reset --hard > /dev/null
             sudo git pull -q -f > /dev/null
         else
             msg bold red " [!!!] The TorSetup installation folder '$TORSETUP_DIR' is not writable, and passwordless sudo is unavailable."
@@ -32,7 +32,7 @@ update_torsetup() {
     else
         local git_url=$(git remote get-url origin)
         msg yellow "[lib/updater.sh] Downloading TorSetup updates from Git: $git_url"
-        git reset --hard
+        git reset --hard > /dev/null
         git pull -q -f > /dev/null
     fi
     msg
