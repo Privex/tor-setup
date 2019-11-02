@@ -22,7 +22,7 @@ update_torsetup() {
         if sudo_works; then
             msg yellow " [?] TorSetup install folder not writable by this user, but sudo appears to work."
             local git_url=$(sudo git remote get-url origin)
-            msg yellow "[lib/updater.sh] (SUDO) Downloading TorSetup updates from Git: $git_url"
+            msg yellow " [lib/updater.sh] (SUDO) Downloading TorSetup updates from Git: $git_url"
             sudo git pull -q -f > /dev/null
         else
             msg bold red " [!!!] The TorSetup installation folder '$TORSETUP_DIR' is not writable, and passwordless sudo is unavailable."
@@ -33,7 +33,7 @@ update_torsetup() {
         msg yellow "[lib/updater.sh] Downloading TorSetup updates from Git: $git_url"
         git pull -q -f > /dev/null
     fi
-
+    msg
     date +'%s' > "$TORSETUP_UPDATE_FILE"
 }
 

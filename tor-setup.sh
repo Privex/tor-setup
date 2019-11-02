@@ -67,7 +67,7 @@ _LN="===========================================================================
 # directory where the script is located, so we can source files regardless of where PWD is
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TORSETUP_DIR="$DIR"
-TORSETUP_VERSION=$(git describe --tags)
+TORSETUP_VERSION=$(cd "$TORSETUP_DIR" && git describe --tags)
 TS_LIB_DIR="${TORSETUP_DIR}/lib"
 
 : ${TPLDIR="${DIR}/templates"}                           # Templates folder containing torrc files, exit notice etc.
@@ -145,15 +145,24 @@ msg green "   ╚═╝    ╚═════╝ ╚═╝  ╚═╝        ╚
 msg green "                                                                                                                       ";
 
 msg "$_LN\n"
-msg bold green "Welcome to Privex's Tor Setup Utility\n"
 msg bold yellow "Libraries / Packages:\n"
 msg bold cyan "\tPrivex ShellCore\n\t\t${BOLD}Version:${RESET} $S_CORE_VER\n\t\t${CYAN}${BOLD}Installed at:${RESET} $SG_DIR\n"
+
 msg bold yellow "Configuration:\n"
 msg bold cyan "\tBase Torrc:\t\t\t${RESET} $BASE_TORRC"
 msg bold cyan "\tExit Policy:\t\t\t${RESET} $EXIT_TORRC"
 msg bold cyan "\tTor Notice HTML Template:\t${RESET} $TORNOTICE_FILE\n"
 msg bold cyan "\tOutputting to Torrc:\t\t${RESET} $TORRC_FILE"
-msg bold cyan "\tOutputting Tor Notice to:\t${RESET} $TORNOTICE_OUTPUT"
+msg bold cyan "\tOutputting Tor Notice to:\t${RESET} $TORNOTICE_OUTPUT\n"
+sleep 1
+
+msg bold green "Welcome to Privex's Tor Setup Utility\n"
+msg bold green "\tTorSetup Version:\t${RESET}${TORSETUP_VERSION}"
+msg bold green "\tTorSetup Folder:\t${RESET}${TORSETUP_DIR}"
+msg bold green "\tGithub Repo:\t\t${RESET}https://github.com/Privex/tor-setup\n"
+msg bold green "\t(C) 2019 Privex Inc. || https://www.privex.io || Released under the GNU AGPL v3\n"
+sleep 1
+
 msg "\n$_LN\n"
 
 TOR_NICKNAME=''
@@ -181,8 +190,10 @@ autoupdate_torsetup
 
 install_tor_deps
 
-msg yellow "To set up your Tor node, we're going to ask you a few questions"
-msg yellow "Once we're done, we'll update your torrc config, and start your Tor node"
+msg "\n$_LN\n"
+
+msg cyan "To set up your Tor node, we're going to ask you a few questions"
+msg cyan "Once we're done, we'll update your torrc config, and start your Tor node"
 
 msg "\n$_LN\n"
 ######################################
