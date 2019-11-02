@@ -325,7 +325,7 @@ tor_summary
 
 msg bold cyan "We've summarized your answers above. Please check and make sure everything seems correct."
 
-if [ -z ${AUTO_SKIP_SUMMARY+x} ] && [[ "$AUTO_SKIP_SUMMARY" != "y" ]] && \
+if { [ -z ${AUTO_SKIP_SUMMARY+x} ] || [[ "$AUTO_SKIP_SUMMARY" != "y" ]]; } && \
        ! yesno "${BOLD}${BLUE}Does everything above look okay? (y/n) >> ${RESET}"; then
     
     # Something is wrong. To save the user some time, we'll ask what specifically is wrong so they can correct it.
