@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+            This is a Tor exit HTML notice template, designed by Privex for use by Tor exit customers.
+            
+            (C) This template is Copyright 2019 Privex Inc. Template released under the GNU AGPL v3
+
+            Privex is a privacy focused server host based in Belize. Our website is https://www.privex.io/
+
+            Note: Just because a server is using this template does not mean Privex operates or even hosts the server it's operating from.
+            
+            Replacable placeholders:
+                DOMAIN_OR_IP - The domain for this Tor node, or it's IPv4 address
+                NODE_OPERATOR - The name of the person/organization operating this Tor exit node.
+                NODE_NICKNAME - The nickname of this Tor exit node, e.g. 'privexse1exit'
+                NETWORK_SPEED - The network speed or rate limit of this exit, e.g. '100mbps' or 'average 4mbyte/s upload and download'
+                DOMAIN_RDNS - The reverse DNS of this Tor exit node, if applicable. Otherwise replace it with N/A
+                IPV4_ADDRESS - The public IPv4 address of this Tor exit, e.g. 1.2.3.4
+                IPV6_ADDRESS - The public IPv6 address of this Tor exit, e.g. 2a07:e01:abc::1234
+
+        -->
+        <title>Tor Exit Server DOMAIN_OR_IP</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.privex.io/lib/semanticui/2.4.2/semantic.min.css" 
+              integrity="sha384-JKIDqM48bt14NZpzl9v0AP36VK2C/X6RuSPfimxpoWdSANUXblZUX1cgdQw8cZUK" crossorigin="anonymous" />
+        
+		<style type="text/css">
+			body {
+				max-width: 1000px;
+				min-width: 400px;
+				width: 100%;
+				margin: 0 auto;
+			}
+			.img {
+				text-align: center;
+                max-width: 20%;
+                margin: 0 auto;
+			}
+            .img img {
+                width: 200px;
+            }
+            .img-combined {
+                max-width: 1000px;
+                min-width: 400px;
+                margin: 0 auto;
+            }
+            .img-combined img {
+                position: relative;
+                left: 22%;
+                height: 200px;
+            }
+
+		</style>
+    </head>
+		<body>
+            <div class="ui segment" style="margin: 1em 0 1em 0;">
+                <h1 style="text-align: center">Tor Exit Server</h1>
+                <div class="ui divider"></div>
+
+                <div class="img-combined">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Tor-logo-2011-flat.svg/800px-Tor-logo-2011-flat.svg.png" alt="Tor Logo" />
+                </div>
+
+                <h2>Full domain name: DOMAIN_OR_IP</h2>
+
+                <table class="ui blue large padded table inverted">
+                    <tbody>
+                        <tr>
+                            <th>Node Operator</th>
+                            <td>NODE_OPERATOR</td>
+                        </tr>
+                        <tr>
+                            <th>Node Nickname</th>
+                            <td>NODE_NICKNAME</td>
+                        </tr>
+                        <tr>
+                            <th>Reverse DNS and public IPs</th>
+                            <td>
+                                <strong>rDNS:</strong> DOMAIN_RDNS <br/>
+                                <strong>IPv6:</strong> IPV6_ADDRESS <br/>
+                                <strong>IPv4:</strong> IPV4_ADDRESS
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Location of Exit Node</th>
+                            <td>Stockholm, Sweden</td>
+                        </tr>
+                        <tr>
+                            <th>Network Throughput</th>
+                            <td>NETWORK_SPEED</td>
+                        </tr>
+                        <tr>
+                            <th>Owner of the network it operates on (ISP / Server Host)</th>
+                            <td>AS210083 Privex Inc. - registered at RIPE NCC</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h2>What is this server? Why is it sending traffic to me?</h2>
+                <p>
+                    This is an Exit Node server for the <a href="https://www.torproject.org/">Tor Anonymity Network</a>, which is dedicated
+                    to <a href="https://2019.www.torproject.org/about/overview">providing privacy</a> to people who need it most: average computer users
+                </p>
+
+                <div class="ui divider"></div>
+                <h2>Who runs this Tor exit server? I need to complain about problematic traffic!</h2>
+                <p>This Tor exit node is operated by NODE_OPERATOR - which complies with the local laws of Sweden where the server is hosted.</p>
+                <h4>
+                But before you try and contact us, please read below to understand how Tor works, we cannot help you find the attacker, and we don't store
+                any illegal content on this server. We simply act as a relay between Tor nodes and the internet - which is in our legal rights.
+                </h4>
+                <div class="ui divider"></div>
+                <p>
+                    In terms of applicable law, the best way to understand Tor is to consider it a
+                    network of routers operating as common carriers, much like the Internet
+                    backbone. However, unlike the Internet backbone routers, Tor routers
+                    explicitly do not contain identifiable routing information about the source of
+                    a packet.
+                </p>
+                <p>
+                    As such, there is little the operator of this router can do to help you track
+                    the connection further. This router maintains no logs of any of the Tor
+                    traffic, so there is little that can be done to trace either legitimate or
+                    illegitimate traffic (or to filter one from the other).  Attempts to
+                    seize this router will accomplish nothing.
+                </p>
+                <p>
+                    If you are a representative of a company who feels that this router is being used to violate the DMCA, please 
+                    be aware that this machine does not host or contain any illegal content. Also be aware that network infrastructure
+                    maintainers are not liable for the type of content that passes over theirequipment, in accordance with 
+                    <a href="http://www4.law.cornell.edu/uscode/html/uscode17/usc_sec_17_00000512----000-.html">DMCA "safe harbor" provisions</a>. 
+                    In other words, you will have just as much luck sending a takedown notice to the Internet backbone providers. Please consult
+                    <a href="https://2019.www.torproject.org/eff/tor-dmca-response.html">EFF's prepared response</a> for more information on this matter.
+                </p>
+                <div class="ui divider"></div>
+                <p>For more information, please consult the following documentation:</p>
+
+                <ol>
+                    <li><a href="https://2019.www.torproject.org/overview.html">Tor Overview</a></li>
+                    <li><a href="https://2019.www.torproject.org/faq-abuse.html">Tor Abuse FAQ</a></li>
+                    <li><a href="https://2019.www.torproject.org/eff/tor-legal-faq.html">Tor Legal FAQ</a></li>
+                </ol>
+                <div class="ui divider"></div>
+                <h2>If Tor users are giving you a lot of problems, you can block them using the various tools made available by Tor:</h2>
+                <p>
+                    You also have the option of blocking this IP address and others on the Tor network if you so desire.<br/>
+                    The Tor project provides a <a href="https://check.torproject.org/cgi-bin/TorBulkExitList.py">python script</a> to extract all IP 
+                    addresses of Tor exit nodes. There's also an official <a href="http://exitlist.torproject.org/">DNSRBL</a> available 
+                    to determine if a given IP address is actually a Tor exit server.<br/><br/>
+                    
+                    <strong>Please be considerate when using these options. It would be unfortunate to deny all Tor users 
+                    access to your site indefinitely simply because of a few bad apples.</strong>
+                </p>
+                <div class="ui divider"></div>
+                <div class="img-combined">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Tor-logo-2011-flat.svg/800px-Tor-logo-2011-flat.svg.png" alt="Tor Logo" />
+                </div>
+            </div>
+		</body>
+</html>
