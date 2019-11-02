@@ -36,7 +36,7 @@ _tordebug() {
 #          msg red "Passwordless sudo isn't available, so cannot install curl!"
 #     fi
 sudo_works() {
-    sudo -n ls /
+    [ "$EUID" -ne 0 ] && sudo -n ls / || true
 }
 
 

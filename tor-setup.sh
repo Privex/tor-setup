@@ -42,8 +42,10 @@
 # Error handling function for ShellCore
 _sc_fail() { >&2 echo "Failed to load or install Privex ShellCore..." && exit 1; }
 # If `load.sh` isn't found in the user install / global install, then download and run the auto-installer from Privex's CDN.
-[[ -f "${HOME}/.pv-shcore/load.sh" ]] || [[ -f "/usr/local/share/pv-shcore/load.sh" ]] || \
-    { curl -fsS https://cdn.privex.io/github/shell-core/install.sh | bash >/dev/null; } || _sc_fail
+[[ -f "${HOME}/.pv-shcore/load.sh" ]] || [[ -f "/usr/local/share/pv-shcore/load.sh" ]] || { 
+    echo "Privex ShellCore not installed. Please wait while we install it for you :) ......";
+    curl -fsS https://cdn.privex.io/github/shell-core/install.sh | bash >/dev/null; 
+} || _sc_fail
 # Attempt to load the local install of ShellCore first, then fallback to global install if it's not found.
 [[ -d "${HOME}/.pv-shcore" ]] && source "${HOME}/.pv-shcore/load.sh" || source "/usr/local/share/pv-shcore/load.sh" || _sc_fail
 # Quietly run ShellCore auto-updater
@@ -93,7 +95,7 @@ source "${TS_LIB_DIR}/questions.sh" || {
     exit 1
 }
 [ ! -z ${TORSETUP_UPDATER_LOADED+x} ] || source "${TS_LIB_DIR}/updater.sh" || { 
-    >&2 echo "${BOLD}${RED}[tor-setup.sh] CRITICAL ERROR: Could not load functions file at '${TS_LIB_DIR}/functions.sh' - Exiting!${RESET}"
+    >&2 echo "${BOLD}${RED}[tor-setup.sh] CRITICAL ERROR: Could not load updater file at '${TS_LIB_DIR}/updater.sh' - Exiting!${RESET}"
     exit 1
 }
 
@@ -101,10 +103,38 @@ source "${SG_DIR}/base/trap.bash" || { >&2 msg bold red "CRITICAL ERROR: Could n
 
 # source "${DIR}/functions.sh" || { >&2 msg bold red "CRITICAL ERROR: Could not load functions file at '${DIR}/functions.sh' - Exiting!" && exit 1; }
 
+# Check if we have the 'python' command (even aliases are fine)
+if ! has_command python; then
+    # If not, but we have python3, then we can just quietly alias python to python3 and everything will work as expected :)
+    if has_command python3; then
+        python() { python3; };
+        export -f python
+    # Check if the user has disabled automated package installation
+    elif [ ! -z ${AUTO_PKG_INSTALL+x} ] && [[ "$AUTO_PKG_INSTALL" == "y" ]]; then
+        msg bold red " [!!!] AUTO_PKG_INSTALL is set to 'y' so automatic package installation is disabled."
+        msg red "You must install python or python3 to use TorSetup."
+        msg red "Please run as root: ${RESET}apt install -y python python3"
+        exit 1
+    # Otherwise, we'll try to auto install python and python3 to fix the issue.
+    else
+        msg yellow "[???] WARNING: Could not find 'python' or 'python3'"
+        if sudo_works; then
+            msg cyan " [-] Attempting to install python and python3 now..."
+            sudo apt-get install -qy python python3 python3-pip > /dev/null
+            msg green " [+] Successfully installed python and python3"
+            python() { python3; };
+            export -f python
+        else
+            msg bold red " [!!!] Passwordless sudo not available and you're not root... Cannot install python"
+            msg red "Please run as root: ${RESET}apt install -y python python3"
+            exit 1
+        fi
+    fi
+fi
 
 
 
-msg "$_LN\n"
+msg "\n$_LN\n"
 
 msg green "████████╗ ██████╗ ██████╗         ███╗   ██╗ ██████╗ ██████╗ ███████╗        ███████╗███████╗████████╗██╗   ██╗██████╗ ";
 msg green "╚══██╔══╝██╔═══██╗██╔══██╗        ████╗  ██║██╔═══██╗██╔══██╗██╔════╝        ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗";
